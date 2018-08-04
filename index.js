@@ -58,7 +58,7 @@ const execute = eslintrc => {
   const joinedModules = [...new Set(modules)].join(' ')
   const errorHandler = (err, stdout, stderr) => {
     if (err) throw err
-    if (stderr) throw stderr
+    if (stderr) console.warn(stderr)
   }
   const command = fs.existsSync('./yarn.lock')
     ? `yarn add -D ${joinedModules}`
