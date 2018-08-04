@@ -1,0 +1,35 @@
+{
+  "name": "eslint-dep",
+  "version": "1.0.0",
+  "description": "eslint dependencies management cli tool.",
+  "bin": {
+    "eslint-dep": "index.js"
+  },
+  "author": "euxn23",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/euxn23/eslint-dep.git"
+  },
+  "keywords": [
+    "eslint"
+  ],
+  "homepage": "https://github.com/euxn23/eslint-dep#readme",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/euxn23/eslint-dep/issues"
+  },
+  "scripts": {
+    "fmt": "prettier-eslint --write \"./**/*.js\"",
+    "test": "prettier --list-different \"./**/*.js\""
+  },
+  "devDependencies": {
+    "eslint": "^5.3.0",
+    "prettier": "^1.14.0",
+    "prettier-cli": "^0.1.0",
+    "prettier-eslint": "^8.8.2",
+    "prettier-eslint-cli": "^4.7.1"
+  },
+  "dependencies": {
+    "js-yaml": "^3.12.0"
+  }
+}
