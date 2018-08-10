@@ -2,7 +2,7 @@
 
 const fs = require('fs')
 const { exec } = require('child_process')
-const ESLINTRC = './.eslintrc'
+const ESLINTRC = `${process.cwd()}/.eslintrc`
 const ESLINTRC_JS = `${ESLINTRC}.js`
 const ESLINTRC_JSON = ESLINTRC
 const ESLINTRC_YML = `${ESLINTRC}.yml`
@@ -25,7 +25,7 @@ const main = async () => {
 
 // (eslintrc: Object) => void
 const execute = eslintrc => {
-  let modules = []
+  const modules = []
   modules.push(...[eslintrc.parser])
   if (Array.isArray(eslintrc.plugins)) {
     modules.push(...eslintrc.plugins.map(name => `eslint-plugin-${name}`))
@@ -33,9 +33,12 @@ const execute = eslintrc => {
   if (Array.isArray(eslintrc.extends)) {
     modules.push(
       ...eslintrc.extends
-        .map(p => (p.match(/^plugin:(.+)\/.*$/) || [])[1])
+        .map(p => p.split('/')[0])
         .filter(Boolean)
-        .map(name => `eslint-plugin-${name}`)
+        .map(
+          p => (p.match(/^plugin:(.+)$/) ? p.replace(':', '-') : `config-${p}`)
+        )
+        .map(name => `eslint-${name}`)
     )
   }
   if (eslintrc.overrides) {
@@ -48,9 +51,13 @@ const execute = eslintrc => {
     if (Array.isArray(eslintrc.overrides.extends)) {
       modules.push(
         ...eslintrc.overrides.extends
-          .map(p => (p.match(/^plugin:(.+)\/.*$/) || [])[1])
+          .map(p => p.split('/')[0])
           .filter(Boolean)
-          .map(name => `eslint-plugin-${name}`)
+          .map(
+            p =>
+              p.match(/^plugin:(.+)$/) ? p.replace(':', '-') : `config-${p}`
+          )
+          .map(name => `eslint-${name}`)
       )
     }
   }
