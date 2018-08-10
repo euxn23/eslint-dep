@@ -62,6 +62,12 @@ const execute = eslintrc => {
     }
   }
 
+  if (module.includes('eslint-plugin-standard')) {
+    modules.push(
+      ...['eslint-plugin-promise', 'eslint-plugin-import', 'eslint-plugin-node']
+    )
+  }
+
   const joinedModules = [...new Set(modules)].join(' ')
   const errorHandler = (err, stdout, stderr) => {
     if (err) throw err
