@@ -62,7 +62,7 @@ const execute = eslintrc => {
     }
   }
 
-  if (module.includes('eslint-plugin-standard')) {
+  if (modules.includes('eslint-plugin-standard')) {
     modules.push(
       ...['eslint-plugin-promise', 'eslint-plugin-import', 'eslint-plugin-node']
     )
